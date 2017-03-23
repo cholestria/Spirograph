@@ -73,7 +73,7 @@ class Spiro:
             a = math.radians(i)
             x = R*((1-k)*math.cos(a) + 1*k*math.cos((1-k)*a/k))
             y = R*((1-k)*math.sin(a) - 1*k.math.sin((1-k)*a/k))
-            self.setpos(self.xc + x, self.yc + y)
+            self.t.setpos(self.xc + x, self.yc + y)
 
         #when drawing is done, hide the cursor
         self.t.hideturtle()
@@ -115,8 +115,8 @@ class SpiroAnimator():
             #set the spiro parameters
             spiro = Spiro(*rparams)
             self.spiros.append(spiro)
-            #call timer
-            turtle.ontimer(self.update, self.deltaT)
+        #call timer
+        turtle.ontimer(self.update, self.deltaT)
 
     def genRandomParams(self):
         width, height = self.width, self.height
@@ -169,14 +169,14 @@ def saveDrawing():
     turtle.hideturtle()
     #generate unique filenames
     dateStr = (datetime.now()).strftime("%d%b%Y-%H%M%S")
-    fileName = 'spiro' + dateStr
+    fileName = 'spiro-' + dateStr
     print 'Saving drawing to %s.eps/png' % fileName
 
     #get the tkinter canvas
     canvas = turtle.getcanvas()
 
     #save the drawing as a postscript image
-    canvas.postscript(file=fileName + '.eps')
+    canvas.postscript(file = fileName + '.eps')
 
     #use the Pillow module to convert the postscript image file to PNG
     img = Image.open(fileName + '.eps')
@@ -209,12 +209,16 @@ def main():
 
     #set the width of the drawing window to 80% of the screen width
     turtle.setup(width=0.8)
+
     #set the cursor shape to turtle
     turtle.shape('turtle')
+
     #set the title to Spirographs
     turtle.title("Spirographs!")
+
     #add the key handler for save drawings
     turtle.onkey(saveDrawing, "s")
+
     #start listening
     turtle.listen()
 
