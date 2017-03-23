@@ -1,3 +1,5 @@
+""" Spirograph is a project created following Mahesh Venkitachalam's Python Playground """
+
 import sys, random, argparse
 import numpy as np
 import math
